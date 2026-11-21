@@ -1,0 +1,16 @@
+Third-party notices
+
+The Millennium Pack is MIT (../LICENSE). Its programs also contain code from these
+projects; their notices go with them. The texts are EUP 1.4's (licences/ in its source
+release), as Install Millennium Pack is made with EUP 1.4.
+
+  newlib.txt                 newlib, the C library (BSD-style notices): its memory and
+                             string functions, in the Plug-Ins and the installer program
+  retro68-gcc-runtime.txt    Retro68's runtime and GCC's libgcc (GPL v3 or later with the
+                             GCC Runtime Library Exception): relocation and 32-bit multiply
+                             and divide, in the Plug-Ins and the installer program
+  multiversal.txt            Multiversal Interfaces (MIT), in the installer program
+  inflate.txt                Mill's gzip decoder (MIT), in the installer program
+
+The installer program is EUP's: every installer made with EUP is a copy of it.
+Nothing under the GPL alone, or the LGPL, is in any of them.

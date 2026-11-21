@@ -1,0 +1,86 @@
+[
+  {
+    "id": "113500000000000003",
+    "created_at": "2026-11-16T21:41:26.000Z",
+    "in_reply_to_id": null,
+    "in_reply_to_account_id": null,
+    "sensitive": false,
+    "spoiler_text": "",
+    "visibility": "public",
+    "language": "en",
+    "uri": "https://retro.example/users/alice/statuses/113500000000000003",
+    "url": "https://retro.example/@alice/113500000000000003",
+    "replies_count": 2,
+    "reblogs_count": 1,
+    "favourites_count": 5,
+    "favourited": false,
+    "reblogged": false,
+    "content": "<p>Booted my Mac Plus today. Café “Mill” works! <a href=\"https://retro.example/tags/macplus\" class=\"mention hashtag\" rel=\"tag\">#<span>macplus</span></a></p><p>See <a href=\"https://www.example.com/a/very/long/path/to/a/page\" rel=\"nofollow noopener\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">example.com/a/very/long/pa</span><span class=\"invisible\">th/to/a/page</span></a> and <span class=\"h-card\" translate=\"no\"><a href=\"https://other.example/@bob\" class=\"u-url mention\">@<span>bob</span></a></span></p>",
+    "reblog": null,
+    "account": {
+      "id": "1",
+      "username": "alice",
+      "acct": "alice",
+      "display_name": "Alice 💾",
+      "note": "<p>Hi</p>",
+      "emojis": [],
+      "fields": []
+    },
+    "media_attachments": [
+      {
+        "id": "9",
+        "type": "image",
+        "url": "https://retro.example/media/original.jpg",
+        "preview_url": "https://retro.example/media/small.jpg",
+        "description": "A Mac Plus on a desk",
+        "meta": {"small": {"width": 400, "height": 300}}
+      }
+    ],
+    "mentions": [{"id": "2", "username": "bob", "url": "https://other.example/@bob", "acct": "bob@other.example"}],
+    "tags": [{"name": "macplus", "url": "https://retro.example/tags/macplus"}],
+    "emojis": [],
+    "card": null,
+    "poll": null
+  },
+  {
+    "id": "113500000000000002",
+    "created_at": "2026-11-16T20:00:00.000Z",
+    "in_reply_to_id": null,
+    "spoiler_text": "",
+    "visibility": "public",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 0,
+    "content": "",
+    "reblog": {
+      "id": "113400000000000001",
+      "created_at": "2026-11-15T10:00:00.000Z",
+      "in_reply_to_id": "113300000000000000",
+      "spoiler_text": "Spoilers for <Myst>",
+      "visibility": "unlisted",
+      "replies_count": 1,
+      "reblogs_count": 7,
+      "favourites_count": 9,
+      "content": "<p>The secret is in the <b>library</b>.</p>",
+      "reblog": null,
+      "account": {"id": "3", "acct": "carol@far.example", "display_name": "Carol"},
+      "media_attachments": []
+    },
+    "account": {"id": "1", "acct": "alice", "display_name": "Alice 💾"},
+    "media_attachments": []
+  },
+  {
+    "id": "113500000000000001",
+    "created_at": "2026-11-16T19:00:00Z",
+    "in_reply_to_id": "113500000000000000",
+    "spoiler_text": "",
+    "visibility": "private",
+    "replies_count": 0,
+    "reblogs_count": 0,
+    "favourites_count": 1,
+    "favourited": true,
+    "content": "<p>Replying &amp; <script>alert(1)</script>quoting: <a href=\"javascript:alert(2)\">click</a></p>",
+    "account": {"id": "4", "acct": "dave", "display_name": ""},
+    "media_attachments": []
+  }
+]

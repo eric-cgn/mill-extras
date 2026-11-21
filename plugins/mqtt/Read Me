@@ -1,0 +1,53 @@
+MQTT
+
+A Plug-In for Mill. Put it in the "Mill Plug-Ins" folder.
+
+  mqtt://broker/topic        The topic's retained value
+  mqtt://broker/a/+/c        Each topic a filter matches, as a table
+  mqtt://broker/a/b/         Every topic under a/b (a/b/#)
+  mqtt://broker/             Every topic (#)
+
+Write # as %23 in an address (mqtt://broker/a/%23), since a bare # starts
+a fragment. An address that ends with "/" stands for that level and all
+below it. The port is 1883 unless the address names another
+(mqtt://broker:1884/topic).
+
+A topic's page shows its retained value: text (UTF-8, shown in Mac
+Roman) in full up to 4K, or binary as hex, its first 256 bytes; then
+its QoS, whether it was retained, and its size. A table shows each topic
+and its value, cut to a line, in topic order. It collects messages for
+the Wait setting, 2 seconds at first, then shows what came: retained
+values, and any published meanwhile. The latest value of each topic
+wins. At most 100 topics (Settings, Most topics; 10 to 250).
+
+A page is a snapshot: Mill shows a page once all of it has come, so
+there is no live page. Reload reads it again.
+
+Each page has a form that publishes: to the page's topic, or on a
+table, to the topic named. Up to 2K of text, sent as UTF-8 (line breaks
+as LF), at QoS 0 or 1, retained or not. A retained message goes back to
+the page, which shows it; an empty one takes the topic's retained
+message away. Only the Plug-In's own pages can publish.
+
+Anonymous, unless the address gives a name and password
+(mqtt://name:password@broker/topic) or Mill has one kept for the
+broker. A broker that refuses (CONNACK 4 or 5) gets Mill's login
+dialog. The client ID is made up for each connection
+(mill-XXXXXXXX-N). The connection is kept between pages, as Mill keeps
+others, and closed with DISCONNECT.
+
+MQTT 3.1.1 over TCP. No TLS, no MQTT 5, no wills.
+
+How it reads: CONNECT (a clean session, keep alive 300 seconds),
+SUBSCRIBE at QoS 2, so each message comes at the QoS it was published
+with; then a PINGREQ, whose PINGRESP comes after what the broker sent
+before it, so each round reads all that is in so far; then UNSUBSCRIBE.
+Messages at QoS 1 and 2 are acknowledged as they come.
+
+Memory, while a page is read: about 9.5K, and for a table 160 bytes a
+topic more (26K with 100). All of it is given back at the page's end.
+
+Written from the OASIS standard, MQTT Version 3.1.1 (29 October 2014).
+
+Build: ./build.sh writes build/MQTT.bin. Tests: tests/run.sh, with
+tests/broker.py, a small MQTT broker for testing (Python, no packages).

@@ -1,0 +1,12 @@
+MQTT brokers, as pages:
+
+ mqtt://broker/topic: the topic's retained value, and a form to publish to it
+ mqtt://broker/a/+/c: each matching topic and its value, as a table
+ mqtt://broker/a/b/: every topic under a/b (a/b/#)
+ mqtt://broker/: every topic
+
+Write # as %23 in an address. Tables collect messages for the Wait setting (2 seconds at first).
+
+Publishing: QoS 0 or 1, retained or not. Brokers that require a login get Mill's login dialog.
+
+MQTT 3.1.1, port 1883 unless the address names another. No TLS.

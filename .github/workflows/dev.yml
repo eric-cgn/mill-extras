@@ -1,0 +1,42 @@
+# Every push to dev: the host tests and a build, published as the "dev" pre-release on
+# GitHub. Each build replaces the last one. Its files are named for the version in
+# installer/extras.ini, "-dev-", and the commit, such as MillExtras-1.0-dev-46a0304.image,
+# and the installer shows the same version.
+name: Dev build
+
+on:
+  push:
+    branches: [dev]
+
+# Only the newest build matters
+concurrency:
+  group: dev
+  cancel-in-progress: true
+
+jobs:
+  dev:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - name: Version
+        run: |
+          echo "EXTRAS_DEV=$(git rev-parse --short=7 HEAD)" >> "$GITHUB_ENV"
+          v=$(sed -n '/^\[installer\]/,/^\[/s/^version *= *//p' installer/extras.ini)
+          echo "VERSION=$v-dev-$(git rev-parse --short=7 HEAD)" >> "$GITHUB_ENV"
+      - name: Test
+        run: ./test.sh
+      - name: Build
+        run: ./build.sh
+      - name: Own the build output
+        run: sudo chown -R "$(id -u):$(id -g)" build dist plugins   # the builds' containers run as root
+      - name: Release files
+        run: python3 tools/release.py
+      - name: Pre-release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete dev --cleanup-tag --yes || true
+          gh release create dev dist/* --prerelease --target "$GITHUB_SHA" --title "Millennium Pack $VERSION" \
+            --notes "A build of the dev branch, not a release. It is replaced by every change to dev."

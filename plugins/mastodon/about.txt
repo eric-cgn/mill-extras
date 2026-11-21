@@ -1,0 +1,11 @@
+Mastodon timelines, accounts, and threads, as pages. Also GoToSocial, Pleroma, snac, and other servers with the same API.
+
+ mastodon://instance/: local timeline
+ mastodon://instance/public: federated timeline
+ mastodon://instance/home: home timeline (logged in)
+ mastodon://instance/tags/name: hashtag
+ mastodon://instance/@user: account's posts
+ mastodon://instance/@user/id: post and its thread
+ mastodon://instance/login: log in or out
+
+HTTPS through the HTTP proxy, see settings. To post, favorite, or boost, log in with an access token (instance settings: Development, New Application).

@@ -1,0 +1,14 @@
+# Retained messages for broker.py --seed: topic<TAB>payload (\n \t \xHH), " q1" after a topic for its QoS, @N for N bytes of binary
+home/kitchen/temperature q1	21.5
+home/kitchen/humidity	48
+home/kitchen/light	on
+home/office/temperature q1	19.0
+home/office/humidity	52
+home/office/door q2	closed
+home/garden/weather	{"temp": 8.5, "wind": "NW 12 km/h", "sky": "overcast"}
+home/garden/note	Caf\xc3\xa9 au lait \xe2\x80\x94 21\xc2\xb0C, na\xc3\xafve \xe2\x84\xa2
+home/garden/camera	@600
+home/garden/motd	Line one\nLine two\n\tindented <b>not bold</b> & more
+home/mac/uptime	3 days
+$SYS/broker/version	broker.py 1.0
+other/thing	elsewhere

@@ -1,0 +1,8 @@
+Markdown and Gemtext, as pages:
+
+ Markdown (.md, .markdown, text/markdown): CommonMark, with tables
+ Gemtext (.gmi, .gemini, text/gemini): Gemini
+
+Read as UTF-8 unless the server names another character set.
+
+Each format can be turned off from the Settings page, under Formats.

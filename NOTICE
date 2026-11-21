@@ -1,0 +1,13 @@
+The Millennium Pack is under the MIT License, in LICENSE beside this file.
+
+The Plug-Ins are built with code from Mill (https://github.com/eric-cgn/mill), fetched at build
+time from the release that tools/deps.py pins: its Plug-In glue (sdk/Glue/MillGlue.c) and some
+of its core code (src/core/http11.c, charset.c, and fmt.c). Mill is under the same MIT License,
+from the same copyright holder.
+
+Install Millennium Pack is made with EUP (https://github.com/eric-cgn/eup), MIT, from the same
+copyright holder, and is a copy of its installer program.
+
+The built Plug-Ins and the installer contain parts of newlib, Retro68's runtime, and GCC's
+libgcc, and the installer also Multiversal Interfaces and Mill's gzip decoder; their notices
+are in licences/.

@@ -1,0 +1,7 @@
+The Millennium Pack adds Plug-Ins for today's web to Mill: Modern Text (Markdown and Gemtext), Mastodon, and MQTT.
+
+Easy Install includes every Plug-In. Custom Install lets you choose.
+
+Requires Mill 2.1.2. Click Choose… and select the folder that holds Mill.
+
+Freeware from OneInAMillion Software.

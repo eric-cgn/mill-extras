@@ -1,0 +1,3 @@
+Test only. Not for release.
+
+This Plug-In tests the Mill Extras disk and installer. placeholder:// shows one line of text.

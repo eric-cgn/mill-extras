@@ -1,0 +1,8 @@
+TEST Placeholder: NOT FOR RELEASE
+
+A Plug-In that does nothing, for testing the Mill Extras disk and
+installer before any real Extras Plug-In is built. ../../build.sh
+never builds it on its own; EXTRAS_PLACEHOLDER=1 ../../build.sh puts
+it on a test disk and installer, marked TEST.
+
+Build: ./build.sh writes build/TEST Placeholder.bin.

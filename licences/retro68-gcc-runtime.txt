@@ -1,0 +1,11 @@
+Retro68 and GCC runtime
+
+The installer program is built with Retro68, Wolfgang Thaller's GCC-based
+compiler for classic Macs (https://github.com/autc04/Retro68). Its runtime
+library (libretrocrt: start-up, segment loading, and relocation) and GCC's
+libgcc (32-bit multiply and divide), parts of which are in the installer
+program, are under the GNU General Public License, version 3 or later, with
+the GCC Runtime Library Exception, version 3.1, which places no conditions on
+programs built with them.
+
+The exception: https://www.gnu.org/licenses/gcc-exception-3.1.html

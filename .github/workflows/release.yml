@@ -1,0 +1,55 @@
+# Every push to main (main takes only pull requests from dev): if installer/extras.ini names a
+# version with no release yet, build the Millennium Pack, tag the commit vX.Y, and make a GitHub
+# release "Millennium Pack X.Y" with Install Millennium Pack (.bin and .hqx) and the Mill Extras
+# Disk image. A push that keeps the version does nothing, and so does the push that created
+# main (the repository's first commit), so the first release is the first merge from dev.
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+# One at a time, so two quick landings can't both release the same version
+concurrency: release
+
+jobs:
+  release:
+    if: github.event.before != '0000000000000000000000000000000000000000'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - id: version
+        name: A new version?
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v=$(sed -n '/^\[installer\]/,/^\[/s/^version *= *//p' installer/extras.ini)
+          echo "VERSION=$v" >> "$GITHUB_ENV"
+          if gh release view "v$v" >/dev/null 2>&1; then
+            echo "Millennium Pack $v is already released"
+            echo "new=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=yes" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Test
+        if: steps.version.outputs.new == 'yes'
+        run: ./test.sh
+      - name: Build
+        if: steps.version.outputs.new == 'yes'
+        run: ./build.sh
+      - name: Own the build output
+        if: steps.version.outputs.new == 'yes'
+        run: sudo chown -R "$(id -u):$(id -g)" build dist plugins   # the builds' containers run as root
+      - name: Release files
+        if: steps.version.outputs.new == 'yes'
+        run: python3 tools/release.py
+      - name: Release
+        if: steps.version.outputs.new == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 tools/release.py notes > notes.txt
+          gh release create "v$VERSION" dist/Install-Millennium-Pack-*.bin dist/Install-Millennium-Pack-*.hqx dist/MillExtras-*.image \
+            --target "$GITHUB_SHA" --title "Millennium Pack $VERSION" --notes-file notes.txt

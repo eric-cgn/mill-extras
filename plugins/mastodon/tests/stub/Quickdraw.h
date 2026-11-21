@@ -1,0 +1,1 @@
+typedef struct QDGlobals QDGlobals;

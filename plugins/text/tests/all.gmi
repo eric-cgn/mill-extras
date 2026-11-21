@@ -1,0 +1,31 @@
+# Gemtext test page
+
+A text line is shown as written.
+The next line stays its own line.
+
+A blank line above started a new paragraph. Café costs 3 € — or so.
+
+=> gemini://gemini.circumlunar.space/ Project Gemini
+=> other.gmi A relative link
+=> http://example.com/
+=>   about.md   Spaces before the URL & label <here>
+
+## Lists and quotes
+
+* First item
+* Second item with <angle brackets> & ampersand
+*not a list item
+
+> A quoted line.
+> Another quoted line.
+
+### Preformatted
+
+```ascii art of a box
++-----+
+| Mill|  <tt> & stays as text
++-----+
+```
+
+#Heading without a space
+Text after.

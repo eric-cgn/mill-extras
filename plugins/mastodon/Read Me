@@ -1,0 +1,94 @@
+Mastodon
+
+A Plug-In for Mill. Put it in the "Mill Plug-Ins" folder.
+
+It reads Mastodon's client API (JSON over HTTPS) and shows what it
+reads as pages: timelines, accounts, hashtags, and threads. Other
+servers that serve the same API (GoToSocial, Pleroma, Akkoma, snac,
+and the like) work too. It doesn't speak ActivityPub itself.
+
+Addresses
+
+  mastodon://instance/              the instance's local timeline
+  mastodon://instance/public        its federated timeline
+  mastodon://instance/home          your home timeline (logged in)
+  mastodon://instance/tags/name     a hashtag's posts
+  mastodon://instance/@user         an account's posts (@user@other
+                                    for one from another instance)
+  mastodon://instance/@user/id      a post, with what it replies to
+                                    above it and its replies below
+  mastodon://instance/login         log in or out
+
+Any of these but a post's takes ?max_id=id, as the "Next page" link
+at the foot of a page does. /public/local is the same as /. A post's
+address is the one its instance shows on the web, with mastodon: for
+https: (https://mastodon.social/@user/123 is
+mastodon://mastodon.social/@user/123).
+
+Pages
+
+Each post shows its author, its date and time (UTC), and its text:
+paragraphs, line breaks, links, bold, italic, code, quotes, and lists
+are kept; anything else is shown as plain text. Hashtags and mentions
+link to their mastodon: pages. A boost says who boosted it; a reply
+links to the post it answers. A content warning hides the post behind
+a "Show" link, which opens it on its own page. Pictures and other
+attachments are links (or, with Show pictures on, small pictures that
+link to the whole one); four are shown at most. A post's text is cut
+at 6K.
+
+HTTPS
+
+Mill can't make HTTPS connections, so with Use HTTPS on (as it is at
+first) every request goes to Mill's HTTP proxy, set in Settings under
+HTTP, which makes the HTTPS connection, as for Mill's own https:
+pages. The proxy has to pass the API's replies on as they are: one
+that rewrites pages for old browsers (MacProxy does) can't carry
+them, and Mill says so. With Use HTTPS off, the requests go straight
+to the instance over plain HTTP, for a server on your own network.
+
+Logging in
+
+Public timelines need no login, where the instance allows them. To
+see your home timeline, post, favorite, or boost, make an access
+token: in the instance's settings, under Development, make a New
+Application with the read and write scopes, open it, and copy "Your
+access token". Paste it into mastodon://instance/login. It's checked
+with the instance, then kept in Mill's settings (in the Mill Settings
+file, as it is), and sent only to that instance, through the proxy.
+One instance has a token at a time. Pages never show it. Log Out
+forgets it; revoke it in the instance's settings to end it there.
+
+Logged in, the instance's pages have a form to post (with a content
+warning and who sees it), each post has Favorite and Boost buttons,
+and a post's own page has a form to reply. These work only from the
+Plug-In's own pages.
+
+Settings
+
+Under Mastodon, in Settings, Protocols:
+
+  Use HTTPS       through the HTTP proxy (on at first)
+  Posts a page    1 to 40 (10 at first)
+  Show pictures   small pictures in posts (off at first: links)
+
+Memory
+
+About 20K while a page is read, given back at its end. Replies are
+read as they come, never kept whole, so a long timeline takes no more.
+
+Notes
+
+  - Times are UTC, as the API gives them.
+  - Text is shown in Mac Roman; characters it lacks are shown as "?".
+  - What you post is sent as Mill sends any form from a Mac Roman
+    page, in ISO 8859-1, then made UTF-8: Mac characters that Latin-1
+    lacks (curly quotes, dashes) become "?".
+  - Polls, cards, and custom emoji pictures aren't shown; a custom
+    emoji is its :name:.
+  - A thread page asks the instance three times: what came before, the
+    post, and its replies.
+
+Build: ./build.sh writes build/Mastodon.bin. Tests: tests/run.sh (the
+JSON reader, posts' HTML, addresses, and pages) and tests/e2e.sh (the
+Plug-In against a fake instance, tests/fakemasto.py).

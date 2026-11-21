@@ -1,0 +1,50 @@
+Modern Text
+
+A Plug-In for Mill. Put it in the "Mill Plug-Ins" folder.
+
+  Markdown    .md and .markdown, text/markdown: CommonMark, with tables
+  Gemtext     .gmi and .gemini, text/gemini: Gemini's text
+
+Both show as pages: headings, paragraphs, lists, quotes, code, links,
+images, and Markdown's tables. Text is read as UTF-8 unless the server
+names another character set (ISO 8859-1 and Mac Roman are known), and
+shown in Mac Roman. Relative links go by the page's own address.
+
+Markdown: ATX and setext headings, paragraphs, block quotes, bullet and
+numbered lists inside each other, fenced and indented code, thematic
+breaks, hard line breaks, HTML blocks and inline HTML (passed on to
+Mill), emphasis and strong emphasis, code spans, inline and reference
+links and images, autolinks, backslash escapes, entities, and GitHub's
+pipe tables. Simplified:
+
+  - A list is tight until a blank line comes between its items (or
+    between two blocks in one); its paragraphs are <P>s from there on.
+  - Tabs are made spaces only in a line's indentation.
+  - Link titles aren't shown (HTML 3.2 has nowhere to put them).
+  - A reference link whose definition comes later waits for it, with
+    what follows, up to 4K of page; past that it goes out as the text
+    it was, and the definition, when it comes, is listed at the page's
+    end. 48 definitions at most.
+  - A paragraph over 4K goes out in parts, cut at line ends; emphasis
+    and links can't span a cut, and such a paragraph can't become a
+    setext heading or a table. A line over 1K is cut too: the rest
+    continues the paragraph or code block it is in.
+  - Lists and quotes nest 24 deep (a list and its item count two);
+    deeper markers are text. A run of * or _ takes part in 6 matches
+    at most, and runs over 100 are text.
+  - Labels and HTML block names match without case for ASCII letters
+    only; punctuation and white space are Mac Roman's.
+
+Gemtext: text lines as lines (a blank line between paragraphs), "=>"
+links one to a line (the address as the label if there's none),
+"```" preformatted text (its alt text not shown), "#", "##", and "###"
+headings, "* " list items, and ">" quotes.
+
+Memory, for each page being read: about 19K for Markdown and 3.5K for
+Gemtext, all taken at the start and given back at the page's end.
+
+Written from the CommonMark specification (0.31.2), GitHub Flavored
+Markdown's tables section, and the Gemini project's gemtext
+specification.
+
+Build: ./build.sh writes build/Modern Text.bin. Tests: tests/run.sh.
