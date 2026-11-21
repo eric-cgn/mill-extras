@@ -7,7 +7,8 @@ set -e
 cd "$(dirname "$0")"
 mkdir -p build
 python3 ../../tools/deps.py      # Mill 2.1.2's SDK and core code, in ../../build/mill
-tr '\n' '\r' < ../../LICENSE > build/License.txt     # a Mac TEXT resource has CR line ends
+{ cat ../../LICENSE; printf '\nnewlib\nThe C library in this Plug-In is newlib, as Retro68 builds it (memory and string\nfunctions). Its notices:\n\n'
+  tail -n +6 ../../licences/newlib.txt; } | tr '\n' '\r' > build/License.txt   # a Mac TEXT resource has CR line ends
 tr '\n' '\r' < about.txt > build/About.txt
 cp "Modern Text.r" build/
 exec docker run --rm --platform linux/amd64 --network none -v "$PWD/../..":/src -w /src/plugins/text \

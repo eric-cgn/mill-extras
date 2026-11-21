@@ -13,4 +13,5 @@ release), as Install Millennium Pack is made with EUP 1.4.
   inflate.txt                Mill's gzip decoder (MIT), in the installer program
 
 The installer program is EUP's: every installer made with EUP is a copy of it.
+Each Plug-In carries the Pack's license and newlib's notices in its License resource.
 Nothing under the GPL alone, or the LGPL, is in any of them.
