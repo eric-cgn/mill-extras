@@ -14,7 +14,7 @@ Setext two
 
 ### Links
 
-Inline <http://example.com/> autolink, <mail@1in1e6.com> mail,
+Inline <http://example.com/> autolink, <mail@example.com> mail,
 reference [full][ref], [collapsed][], [shortcut], and forward [later one][fwd].
 An image: ![Mill's windmill](windmill.gif) and a reference image ![alt *text*][img].
 Not a link: [nothing here] and a [link with `code` in it](a%20b.html).

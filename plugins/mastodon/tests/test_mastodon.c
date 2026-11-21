@@ -369,7 +369,7 @@ static void test_routes(void)
     route_parse("/tags/retro", &rt); CHECK(rt.kind == RT_TAG && !strcmp(rt.tag, "retro"));
     route_parse("/tags/caf%C3%A9?max_id=5", &rt); CHECK(rt.kind == RT_TAG && !strcmp(rt.tag, "caf%C3%A9") && !strcmp(rt.max_id, "5"));
     route_parse("/@eric", &rt); CHECK(rt.kind == RT_ACCOUNT && !strcmp(rt.user, "eric"));
-    route_parse("/@eric@1in1e6.com", &rt); CHECK(rt.kind == RT_ACCOUNT && !strcmp(rt.user, "eric@1in1e6.com"));
+    route_parse("/@eric@example.com", &rt); CHECK(rt.kind == RT_ACCOUNT && !strcmp(rt.user, "eric@example.com"));
     route_parse("/@eric/113500000000000003", &rt); CHECK(rt.kind == RT_STATUS && !strcmp(rt.id, "113500000000000003"));
     route_parse("/@bob@other.example/d5f3832f", &rt); CHECK(rt.kind == RT_STATUS && !strcmp(rt.user, "bob@other.example"));
     route_parse("/@eric/123/act", &rt); CHECK(rt.kind == RT_ACT && !strcmp(rt.id, "123"));
@@ -557,17 +557,17 @@ static void test_pages(const char *dir)
     }
     /* an account, and an error */
     {
-        const char *acct = "{\"id\":\"d5f3\",\"acct\":\"eric@1in1e6.com\",\"display_name\":\"eric\",\"note\":\"<p>Hi &amp; <b>bye</b></p>\","
-                           "\"url\":\"https://social.1in1e6.com/eric\",\"followers_count\":3,\"following_count\":4,\"statuses_count\":5,"
+        const char *acct = "{\"id\":\"d5f3\",\"acct\":\"eric@example.com\",\"display_name\":\"eric\",\"note\":\"<p>Hi &amp; <b>bye</b></p>\","
+                           "\"url\":\"https://social.example.com/eric\",\"followers_count\":3,\"following_count\":4,\"statuses_count\":5,"
                            "\"fields\":[{\"name\":\"x\",\"value\":\"<a href='https://e'>e</a>\"}],\"emojis\":[]}";
         CHECK(show(acct, strlen(acct), MP_ACCOUNT, 0, 0) == JSON_DONE);
         SAME(model.acct.id, "d5f3");
-        SAME(model.acct.acct, "eric@1in1e6.com");
+        SAME(model.acct.acct, "eric@example.com");
         plen = 0;
         page_account(&pout, &model);
-        HAS(page, "<B>eric</B> @eric@1in1e6.com");
+        HAS(page, "<B>eric</B> @eric@example.com");
         HAS(page, "<BLOCKQUOTE>Hi &amp; <B>bye</B></BLOCKQUOTE>");
-        HAS(page, "5 posts, 4 following, 3 followers | <A HREF=\"https://social.1in1e6.com/eric\">On the web</A>");
+        HAS(page, "5 posts, 4 following, 3 followers | <A HREF=\"https://social.example.com/eric\">On the web</A>");
         /* a note of nothing but a line break isn't shown */
         CHECK(show("{\"acct\":\"e\",\"note\":\"<br> \"}", 27, MP_ACCOUNT, 0, 0) == JSON_DONE);
         plen = 0;
@@ -618,8 +618,8 @@ static void test_pages(const char *dir)
     HASNT(page, "Home");
     route_parse("/home", &rt);
     plen = 0;
-    page_head(&pout, "inst.example", "Home", &rt, "eric@1in1e6.com");
-    HAS(page, "<B>Home</B> | <A HREF=\"mastodon://inst.example/login\">@eric@1in1e6.com</A>");
+    page_head(&pout, "inst.example", "Home", &rt, "eric@example.com");
+    HAS(page, "<B>Home</B> | <A HREF=\"mastodon://inst.example/login\">@eric@example.com</A>");
     plen = 0;
     page_post_form(&pout, "inst.example", "123", "bob@x");
     HAS(page, "<INPUT TYPE=HIDDEN NAME=in_reply_to_id VALUE=\"123\">");
